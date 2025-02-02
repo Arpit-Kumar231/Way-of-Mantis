@@ -12,7 +12,7 @@ function Header() {
   const { user } = useUser();
 
   return (
-    <div className="flex items-center justify-between p-6">
+    <div className="flex items-center justify-between p-4">
       {user && (
         <h1 className="text-2xl font-semibold">
           {user?.firstName}
