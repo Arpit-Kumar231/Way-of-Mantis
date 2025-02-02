@@ -1,21 +1,27 @@
 "use client";
-import React, { useTransition } from "react";
+
+import React from "react";
 import { Button } from "./ui/button";
 import { useRouter } from "next/navigation";
+import { useMutation } from "@tanstack/react-query";
 import { createNewDocument } from "@/actions/actions";
 
 function NewDocumentButton() {
-  const [isPending, startTransition] = useTransition();
   const router = useRouter();
-  const handleCreateNewDocument = () => {
-    startTransition(async () => {
-      const { docId } = await createNewDocument();
-      router.push(`/doc/${docId}`);
-    });
-  };
+
+  const mutation = useMutation({
+    mutationFn: createNewDocument,
+    onSuccess: (data) => {
+      router.push(`/doc/${data.docId}`);
+    }
+  });
+
   return (
-    <Button onClick={handleCreateNewDocument} disabled={isPending}>
-      {isPending ? "Creating Document..." : "New Document"}
+    <Button 
+      onClick={() => mutation.mutate()} 
+      disabled={mutation.isPending}
+    >
+      {mutation.isPending ? "Creating Document..." : "New Document"}
     </Button>
   );
 }

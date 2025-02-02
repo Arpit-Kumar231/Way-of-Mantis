@@ -1,16 +1,25 @@
 "use client";
 
 import { db } from "@/firebase";
-import { doc } from "firebase/firestore";
+import { doc, getDoc } from "firebase/firestore";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import React from "react";
-import { useDocumentData } from "react-firebase-hooks/firestore";
+import { useQuery } from "@tanstack/react-query";
+
+async function getDocument(id: string) {
+  const docRef = doc(db, "documents", id);
+  const docSnap = await getDoc(docRef);
+  return docSnap.data();
+}
 
 function SidebarOption({ href, id }: { href: string; id: string }) {
-  const [data, loading, error] = useDocumentData(doc(db, "documents", id));
-  const pathName = usePathname();
-  const isActive = href.includes(pathName) && pathName !== "/";
+  const pathname = usePathname();
+  const isActive = href.includes(pathname) && pathname !== "/";
+
+  const { data, isLoading } = useQuery({
+    queryKey: ["document", id],
+    queryFn: () => getDocument(id),
+  });
 
   if (!data) return null;
 
@@ -47,13 +56,13 @@ function SidebarOption({ href, id }: { href: string; id: string }) {
         className={`truncate ${
           isActive
             ? "text-black dark:text-gray-200 font-semibold text-sm"
-            : "text-gray-700 dark:text-gray-300 group-hover:text-gray-900 dark:group-hover:text-white  font-semibold text-sm"
+            : "text-gray-700 dark:text-gray-300 group-hover:text-gray-900 dark:group-hover:text-white font-semibold text-sm"
         }`}
       >
         {data.title}
       </p>
 
-      {loading && (
+      {isLoading && (
         <div className="ml-auto">
           <div className="w-4 h-4 border-2 border-gray-200 border-t-black rounded-full animate-spin"></div>
         </div>

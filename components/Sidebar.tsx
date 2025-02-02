@@ -1,62 +1,73 @@
 "use client";
 
-import React, { useEffect } from "react";
-import NewDocumentButton from "./NewDocumentButton";
+import React from "react";
+import { useUser } from "@clerk/nextjs";
+import { db } from "@/firebase";
+import {
+  collection,
+  query,
+  where,
+  collectionGroup,
+  getDocs,
+} from "firebase/firestore";
+import { useQuery } from "@tanstack/react-query";
+import { MenuIcon } from "lucide-react";
 import {
   Sheet,
   SheetContent,
-  SheetDescription,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-} from "./ui/sheet";
-import { MenuIcon } from "lucide-react";
-import { useUser } from "@clerk/nextjs";
-import { useCollection } from "react-firebase-hooks/firestore";
-import { collectionGroup, query, where } from "firebase/firestore";
-import { db } from "@/firebase";
+} from "@/components/ui/sheet";
+import NewDocumentButton from "./NewDocumentButton";
 import SidebarOption from "./SidebarOption";
+
+async function fetchUserDocuments(email: string | undefined) {
+  if (!email) return null;
+
+  const q = query(collectionGroup(db, "rooms"), where("userId", "==", email));
+
+  const querySnapshot = await getDocs(q);
+  return querySnapshot.docs.map((doc) => ({
+    id: doc.id,
+    ...doc.data(),
+  }));
+}
 
 export default function Sidebar() {
   const { user, isLoaded } = useUser();
-  const [groupedData, setGroupedData] = React.useState<any>({
+  const [groupedData, setGroupedData] = React.useState<{
+    owner: any[];
+    editor: any[];
+  }>({
     owner: [],
     editor: [],
   });
 
-  const [data, loading, error] = useCollection(
-    // Only create query when user is loaded and exists
-    isLoaded && user?.emailAddresses[0]?.emailAddress
-      ? query(
-          collectionGroup(db, "rooms"),
-          where("userId", "==", user.emailAddresses[0].emailAddress.toString())
-        )
-      : null
-  );
-  useEffect(() => {
-    console.log(data + "data");
+  const { data, isLoading } = useQuery({
+    queryKey: ["userDocuments", user?.emailAddresses[0]?.emailAddress],
+    queryFn: () => fetchUserDocuments(user?.emailAddresses[0]?.emailAddress),
+    enabled: isLoaded && !!user?.emailAddresses[0]?.emailAddress,
+  });
+
+  React.useEffect(() => {
     if (!data) return;
-    const grouped = data.docs.reduce(
+
+    const grouped = data.reduce(
       (acc, doc) => {
-        const roomData = doc.data();
-        if (roomData.role === "owner") {
-          acc?.owner.push({
-            id: doc.id,
-            ...roomData,
-          });
+        if (doc.role === "owner") {
+          acc.owner.push(doc);
         } else {
-          acc?.editor.push({
-            id: doc.id,
-            ...roomData,
-          });
+          acc.editor.push(doc);
         }
         return acc;
       },
       { owner: [], editor: [] }
     );
+
     setGroupedData(grouped);
   }, [data]);
-  console.log(groupedData);
+
   const menuOptions = (
     <>
       <NewDocumentButton />
@@ -98,6 +109,7 @@ export default function Sidebar() {
       </div>
     </>
   );
+
   return (
     <div className="p-2 md:p-5 bg-gray-200 relative">
       <div className="md:hidden">

@@ -7,12 +7,14 @@ import {
   useUser,
 } from "@clerk/nextjs";
 import React from "react";
+import Breadcrumbs from "./Breadcrumbs";
 
 function Header() {
   const { user } = useUser();
 
   return (
     <div className="flex items-center justify-between p-4">
+      <Breadcrumbs />
       {user && (
         <h1 className="text-2xl font-semibold">
           {user?.firstName}

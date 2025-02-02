@@ -1,38 +1,61 @@
 "use client";
-import React, { FormEvent, useEffect, useState, useTransition } from "react";
+
+import React, { FormEvent, useState } from "react";
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 import { doc, updateDoc } from "firebase/firestore";
 import { db } from "@/firebase";
-import { useDocumentData } from "react-firebase-hooks/firestore";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { getDoc } from "firebase/firestore";
 
 function Document({ id }: { id: string }) {
-  const [data, loading, error] = useDocumentData(doc(db, "documents", id));
   const [input, setInput] = useState("");
-  const [isUpdating, startTranstion] = useTransition();
+  const queryClient = useQueryClient();
+
+  const { data, isLoading, error } = useQuery({
+    queryKey: ["document", id],
+    queryFn: async () => {
+      const docRef = doc(db, "documents", id);
+      const docSnap = await getDoc(docRef);
+      return docSnap.data();
+    },
+  });
+
+  const mutation = useMutation({
+    mutationFn: async (newTitle: string) => {
+      const docRef = doc(db, "documents", id);
+      await updateDoc(docRef, {
+        title: newTitle,
+      });
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["document", id] });
+    },
+  });
+
   const updateTitle = (e: FormEvent) => {
     e.preventDefault();
     if (input.trim()) {
-      startTranstion(async () => {
-        await updateDoc(doc(db, "documents", id), {
-          title: input,
-        });
-      });
+      mutation.mutate(input);
     }
   };
-  useEffect(() => {
+
+  React.useEffect(() => {
     if (data) {
       setInput(data.title);
     }
   }, [data]);
+
+  if (isLoading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error.message}</div>;
 
   return (
     <div>
       <div>
         <form onSubmit={updateTitle}>
           <Input value={input} onChange={(e) => setInput(e.target.value)} />
-          <Button disabled={isUpdating} type="submit">
-            {isUpdating ? "Updating..." : "Update"}
+          <Button disabled={mutation.isPending} type="submit">
+            {mutation.isPending ? "Updating..." : "Update"}
           </Button>
         </form>
       </div>
