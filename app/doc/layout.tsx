@@ -1,9 +1,9 @@
 import LiveBlocksProviderComp from '@/components/LiveBlocksProvider'
 import React from 'react'
 
-function PageLayout() {
+function PageLayout({ children }: { children: React.ReactNode }) {
   return (
-    <LiveBlocksProviderComp>layout</LiveBlocksProviderComp>
+    <LiveBlocksProviderComp>{children}</LiveBlocksProviderComp>
   )
 }
 

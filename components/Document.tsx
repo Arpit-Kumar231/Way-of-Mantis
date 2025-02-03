@@ -7,10 +7,13 @@ import { doc, updateDoc } from "firebase/firestore";
 import { db } from "@/firebase";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { getDoc } from "firebase/firestore";
+import Editor from "./Editor";
+import useOwner from "@/lib/useOwner";
 
 function Document({ id }: { id: string }) {
   const [input, setInput] = useState("");
   const queryClient = useQueryClient();
+  const isOwner = useOwner();
 
   const { data, isLoading, error } = useQuery({
     queryKey: ["document", id],
@@ -51,14 +54,17 @@ function Document({ id }: { id: string }) {
 
   return (
     <div>
-      <div>
-        <form onSubmit={updateTitle}>
+      <div className="flex max-w-6xl mx-auto">
+        <form onSubmit={updateTitle} className="flex space-x-2 flex-1">
           <Input value={input} onChange={(e) => setInput(e.target.value)} />
           <Button disabled={mutation.isPending} type="submit">
             {mutation.isPending ? "Updating..." : "Update"}
           </Button>
+          
         </form>
       </div>
+      <hr className="py-10"></hr>
+      <Editor />
     </div>
   );
 }
