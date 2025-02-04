@@ -1,6 +1,6 @@
 # Path of the Mantis - Collaborative Text Editor 🦗
 
-A real-time collaborative text editor built with Next.js, TipTap, Liveblocks, and Firebase.
+A real-time collaborative text editor built with Next.js+ Typescript, TipTap, Liveblocks, and Firebase.
 
 ## ✨ Features
 
