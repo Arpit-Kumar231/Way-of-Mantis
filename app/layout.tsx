@@ -8,9 +8,12 @@ import {
   SignedOut,
   UserButton,
 } from "@clerk/nextjs";
-import Header from "@/components/Header";
-import Sidebar from "@/components/Sidebar";
+
+
 import QueryProvider from "@/components/QueryProvider";
+import { Toaster } from "@/components/ui/sonner";
+
+import Sidebar from "@/components/Sidebar";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -40,13 +43,14 @@ export default function RootLayout({
           className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         >
           <QueryProvider>
-            <Header />
+           
             <div className="flex min-h-screen">
               <div className="flex-1 p-4 bg-gray-100 overflow-y-auto scrollbar-hide">
                 {children}
               </div>
               <Sidebar />
             </div>
+            <Toaster />
           </QueryProvider>
         </body>
       </html>

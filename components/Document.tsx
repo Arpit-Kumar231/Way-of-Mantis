@@ -9,6 +9,10 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { getDoc } from "firebase/firestore";
 import Editor from "./Editor";
 import useOwner from "@/lib/useOwner";
+import DeleteDocument from "./DeleteDoc";
+import InviteUser from "./InviteUser";
+import { Breadcrumb } from "./ui/breadcrumb";
+import Breadcrumbs from "./Breadcrumbs";
 
 function Document({ id }: { id: string }) {
   const [input, setInput] = useState("");
@@ -54,16 +58,27 @@ function Document({ id }: { id: string }) {
 
   return (
     <div>
-      <div className="flex max-w-6xl mx-auto">
-        <form onSubmit={updateTitle} className="flex space-x-2 flex-1">
-          <Input value={input} onChange={(e) => setInput(e.target.value)} />
-          <Button disabled={mutation.isPending} type="submit">
+      <div className="flex max-w-6xl mx-auto flex-col gap-4">
+        <form onSubmit={updateTitle} className="flex items-center gap-3 pb-10">
+          <Input
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            className="flex-1 border-gray-200 focus:ring-gray-950 focus:border-gray-950"
+          />
+          <Button
+            disabled={mutation.isPending}
+            type="submit"
+            variant="outline"
+            className="bg-black text-white hover:bg-gray-800 border-0"
+          >
             {mutation.isPending ? "Updating..." : "Update"}
           </Button>
-          
+          {isOwner && <DeleteDocument />}
+          {isOwner && <InviteUser />}
         </form>
+        <Breadcrumbs />
       </div>
-      <hr className="py-10"></hr>
+      {/* <hr className="py-10"></hr> */}
       <Editor />
     </div>
   );

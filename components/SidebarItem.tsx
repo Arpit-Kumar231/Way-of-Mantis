@@ -12,7 +12,7 @@ async function getDocument(id: string) {
   return docSnap.data();
 }
 
-function SidebarOption({ href, id }: { href: string; id: string }) {
+function SidebarItem({ href, id }: { href: string; id: string }) {
   const pathname = usePathname();
   const isActive = href.includes(pathname) && pathname !== "/";
 
@@ -71,4 +71,4 @@ function SidebarOption({ href, id }: { href: string; id: string }) {
   );
 }
 
-export default SidebarOption;
+export default SidebarItem;

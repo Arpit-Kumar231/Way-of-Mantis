@@ -33,7 +33,7 @@ function BlockNote({
     },
   });
   return (
-    <div className="relative max-w-6xl mx-auto">
+    <div className="relative max-w-6xl mx-auto min-h-[800px] bg-white p-10 rounded-xl">
       <BlockNoteView editor={editor} theme={darkMode ? "dark" : "light"} />
     </div>
   );
@@ -55,18 +55,9 @@ function Editor() {
     };
   }, [room]);
   if (!doc || !provider) return null;
-  const style = `hover:text-white ${
-    darkMode
-      ? "text-gray-300 bg-gray-700 hover:bg-gray-100 hover:text-gray-700"
-      : "text-gray-700 bg-gray-300 hover:bg-gray-300 hover:text-gray-700"
-  }`;
+
   return (
     <div className="max-w-6xl mx-auto">
-      <div className="flex items-center gap-2 justify-end mb-10">
-        <Button className={style} onClick={() => setDarkMode(!darkMode)}>
-          {darkMode ? <SunIcon /> : <MoonIcon />}
-        </Button>
-      </div>
       <BlockNote doc={doc} provider={provider} darkMode={darkMode} />
     </div>
   );

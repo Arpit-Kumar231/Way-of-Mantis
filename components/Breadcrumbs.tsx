@@ -16,7 +16,7 @@ function Breadcrumbs() {
   const partsWithoutSpace = parts.filter((part) => part !== "");
 
   return (
-    <Breadcrumb>
+    <Breadcrumb className="justify-center flex pb-4">
       <BreadcrumbList>
         <BreadcrumbItem>
           <BreadcrumbLink href="/">Home</BreadcrumbLink>

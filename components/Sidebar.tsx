@@ -19,8 +19,10 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import NewDocumentButton from "./NewDocumentButton";
-import SidebarOption from "./SidebarOption";
+import NewDocumentButton from "./CreateDocumentButton";
+import SidebarItem from "./SidebarItem";
+import AuthComponent from "./AuthComponent";
+import CreateDocumentButton from "./CreateDocumentButton";
 
 async function fetchUserDocuments(email: string | undefined) {
   if (!email) return null;
@@ -70,7 +72,8 @@ export default function Sidebar() {
 
   const menuOptions = (
     <>
-      <NewDocumentButton />
+      <AuthComponent />
+      <CreateDocumentButton />
       <div className="flex py-4 flex-col space-y-4 md:max-w-36">
         {groupedData?.owner?.length === 0 ? (
           <div>
@@ -84,7 +87,7 @@ export default function Sidebar() {
               My Documents
             </h2>
             {groupedData?.owner?.map((doc: any) => (
-              <SidebarOption key={doc.id} id={doc.id} href={`/doc/${doc.id}`} />
+              <SidebarItem key={doc.id} id={doc.id} href={`/doc/${doc.id}`} />
             ))}
           </>
         )}
@@ -93,16 +96,16 @@ export default function Sidebar() {
         {groupedData?.editor?.length === 0 ? (
           <div>
             <h2 className="text-gray-500 font-semibold text-sm">
-              Shared with me
+              Shared Documents
             </h2>
           </div>
         ) : (
           <>
             <h2 className="text-sm font-semibold text-gray-500">
-              Shared with me
+              Shared Documents
             </h2>
             {groupedData?.editor?.map((doc: any) => (
-              <SidebarOption key={doc.id} id={doc.id} href={`/doc/${doc.id}`} />
+              <SidebarItem key={doc.id} id={doc.id} href={`/doc/${doc.id}`} />
             ))}
           </>
         )}

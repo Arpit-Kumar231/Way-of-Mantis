@@ -3,11 +3,15 @@
 import React from "react";
 import { Button } from "./ui/button";
 import { useRouter } from "next/navigation";
-import { useMutation } from "@tanstack/react-query";
+import { QueryClient, useMutation } from "@tanstack/react-query";
 import { createNewDocument } from "@/actions/actions";
+import { PlusCircleIcon } from "lucide-react";
+import { query } from "firebase/firestore";
+const queryClient = new QueryClient();
 
-function NewDocumentButton() {
+function CreateDocumentButton() {
   const router = useRouter();
+  
 
   const mutation = useMutation({
     mutationFn: createNewDocument,
@@ -22,8 +26,9 @@ function NewDocumentButton() {
       disabled={mutation.isPending}
     >
       {mutation.isPending ? "Creating Document..." : "New Document"}
+      <PlusCircleIcon />
     </Button>
   );
 }
 
-export default NewDocumentButton;
+export default CreateDocumentButton;
