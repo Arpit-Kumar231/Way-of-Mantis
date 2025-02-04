@@ -69,3 +69,6 @@ Cursor Presence: See other users' cursors in real-time
 Rich Text Editing: Support for formatting, lists, and more
 Authentication: Secure access with Clerk integration
 Document Management: Create, edit, and delete documents
+
+### Firebase Env's can be get by allowing admin db access and installing the service.json file provided by firebase that file will contain all the necessary env's
+### Note: Have use Blocknote provided by Liveblocks for rich text editor.
