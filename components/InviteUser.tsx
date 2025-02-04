@@ -52,7 +52,7 @@ function InviteUser() {
 
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
-      <Button asChild variant="secondary">
+      <Button asChild variant="outline">
         <DialogTrigger>Invite</DialogTrigger>
       </Button>
       <DialogContent>

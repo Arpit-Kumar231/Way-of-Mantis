@@ -1,8 +1,7 @@
 "use client";
 
-import React, { FormEvent, useState } from "react";
+import React, { FormEvent, useState, useEffect } from "react";
 import { Input } from "./ui/input";
-import { Button } from "./ui/button";
 import { doc, updateDoc } from "firebase/firestore";
 import { db } from "@/firebase";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
@@ -39,45 +38,44 @@ function Document({ id }: { id: string }) {
     },
   });
 
-  const updateTitle = (e: FormEvent) => {
-    e.preventDefault();
-    if (input.trim()) {
-      mutation.mutate(input);
-    }
-  };
-
-  React.useEffect(() => {
+  useEffect(() => {
     if (data) {
       setInput(data.title);
     }
   }, [data]);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (input.trim() && input !== data?.title) {
+        mutation.mutate(input);
+      }
+    }, 1000);
+
+    return () => clearTimeout(timer);
+  }, [input]);
 
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Error: {error.message}</div>;
 
   return (
     <div>
-      <div className="flex max-w-6xl mx-auto flex-col gap-4">
-        <form onSubmit={updateTitle} className="flex items-center gap-3 pb-10">
+      <div className="flex max-w-6xl mx-auto flex-col gap-4 pt-16">
+        <div className="flex items-center gap-3 pb-10">
           <Input
             value={input}
             onChange={(e) => setInput(e.target.value)}
-            className="flex-1 border-gray-200 focus:ring-gray-950 focus:border-gray-950"
+            style={{ all: "unset", flex: 1, fontSize: "4rem", fontWeight: 700 }}
           />
-          <Button
-            disabled={mutation.isPending}
-            type="submit"
-            variant="outline"
-            className="bg-black text-white hover:bg-gray-800 border-0"
-          >
-            {mutation.isPending ? "Updating..." : "Update"}
-          </Button>
-          {isOwner && <DeleteDocument />}
-          {isOwner && <InviteUser />}
-        </form>
-        <Breadcrumbs />
+        </div>
+        <div className="flex justify-between items-center">
+          <Breadcrumbs />
+          <div className="pb-2 flex gap-1">
+            {isOwner && <InviteUser />}
+
+            {isOwner && <DeleteDocument />}
+          </div>
+        </div>
       </div>
-      {/* <hr className="py-10"></hr> */}
       <Editor />
     </div>
   );

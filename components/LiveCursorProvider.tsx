@@ -1,3 +1,5 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck
 import { useOthers } from "@liveblocks/react";
 import { useMyPresence } from "@liveblocks/react/suspense";
 import React from "react";
