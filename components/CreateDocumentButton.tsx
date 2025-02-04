@@ -24,7 +24,7 @@ function CreateDocumentButton() {
   });
 
   return (
-    <Button onClick={() => mutation.mutate()} disabled={mutation.isPending}>
+    <Button onClick={() => mutation.mutate()} disabled={mutation.isPending} variant={"outline"}>
       {mutation.isPending ? "Creating Document..." : "New Document"}
       <PlusCircleIcon />
     </Button>
