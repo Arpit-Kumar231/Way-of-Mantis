@@ -49,7 +49,7 @@ export default function Sidebar() {
   const { data, isLoading } = useQuery({
     queryKey: ["userDocuments", user?.emailAddresses[0]?.emailAddress],
     queryFn: () => fetchUserDocuments(user?.emailAddresses[0]?.emailAddress),
-    enabled: isLoaded && !!user?.emailAddresses[0]?.emailAddress,
+    // refetchInterval: 3000,
   });
 
   React.useEffect(() => {

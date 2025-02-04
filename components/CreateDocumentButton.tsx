@@ -3,28 +3,28 @@
 import React from "react";
 import { Button } from "./ui/button";
 import { useRouter } from "next/navigation";
-import { QueryClient, useMutation } from "@tanstack/react-query";
+import { QueryClient, useMutation, useQueryClient } from "@tanstack/react-query";
 import { createNewDocument } from "@/actions/actions";
 import { PlusCircleIcon } from "lucide-react";
-import { query } from "firebase/firestore";
-const queryClient = new QueryClient();
+import { useUser } from "@clerk/nextjs";
 
 function CreateDocumentButton() {
+  const { user } = useUser();
   const router = useRouter();
-  
+  const queryClient = useQueryClient();
 
   const mutation = useMutation({
     mutationFn: createNewDocument,
     onSuccess: (data) => {
+      queryClient.invalidateQueries({
+        queryKey: ["userDocuments", user?.emailAddresses[0]?.emailAddress],
+      });
       router.push(`/doc/${data.docId}`);
-    }
+    },
   });
 
   return (
-    <Button 
-      onClick={() => mutation.mutate()} 
-      disabled={mutation.isPending}
-    >
+    <Button onClick={() => mutation.mutate()} disabled={mutation.isPending}>
       {mutation.isPending ? "Creating Document..." : "New Document"}
       <PlusCircleIcon />
     </Button>

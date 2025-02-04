@@ -1,5 +1,7 @@
 "use client";
+
 import React from "react";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import {
   Dialog,
   DialogContent,
@@ -12,26 +14,30 @@ import {
 import { Button } from "./ui/button";
 import { DialogClose } from "@radix-ui/react-dialog";
 import { usePathname, useRouter } from "next/navigation";
-import { deleteDoc } from "firebase/firestore";
 import { deleteDocument } from "@/actions/actions";
-import { toast } from "sonner";
 
 function DeleteDocument() {
   const [isOpen, setIsOpen] = React.useState(false);
-  const [isPending, startTransition] = React.useTransition();
   const pathName = usePathname();
   const router = useRouter();
+  const queryClient = useQueryClient();
+
+  const deleteDocumentMutation = useMutation({
+    mutationFn: async (roomId: string) => {
+      const result = await deleteDocument(roomId);
+      return result;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["userDocuments"] });
+      router.replace("/");
+      setIsOpen(false);
+    },
+  });
+
   const handleDelete = () => {
     const roomId = pathName.split("/").pop();
     if (!roomId) return;
-
-    startTransition(async () => {
-      const { success } = await deleteDocument(roomId);
-      if (success) {
-        router.replace("/");
-        toast.success("Deleted the doc");
-      }
-    });
+    deleteDocumentMutation.mutate(roomId);
   };
 
   return (
@@ -55,9 +61,9 @@ function DeleteDocument() {
             type="button"
             variant={"destructive"}
             onClick={handleDelete}
-            disabled={isPending}
+            disabled={deleteDocumentMutation.isPending}
           >
-            {isPending ? "Deleting..." : "Delete"}
+            {deleteDocumentMutation.isPending ? "Deleting..." : "Delete"}
           </Button>
         </DialogFooter>
       </DialogContent>

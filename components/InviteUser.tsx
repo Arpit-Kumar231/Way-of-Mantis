@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import {
   Dialog,
   DialogContent,
@@ -22,17 +22,25 @@ function InviteUser() {
   const [isOpen, setIsOpen] = React.useState(false);
   const [email, setEmail] = React.useState("");
   const pathName = usePathname();
+  const queryClient = useQueryClient();
 
   const inviteMutation = useMutation({
-    mutationFn: async ({ roomId, email }: { roomId: string; email: string }) => {
+    mutationFn: async ({
+      roomId,
+      email,
+    }: {
+      roomId: string;
+      email: string;
+    }) => {
       const result = await inviteUser(roomId, email);
       return result;
     },
     onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["userDocuments"] });
       setIsOpen(false);
       setEmail("");
       toast.success("User Invited");
-    }
+    },
   });
 
   const handleInvite = (e: React.FormEvent) => {
