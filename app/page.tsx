@@ -1,6 +1,6 @@
 import CreateDocumentButton from "@/components/CreateDocumentButton";
-import { ArrowLeftCircle, ArrowRightCircle, Pen } from "lucide-react";
-import Image from "next/image";
+import { Pen } from "lucide-react";
+
 
 export default function Home() {
   return (

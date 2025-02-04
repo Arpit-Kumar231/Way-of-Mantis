@@ -6,14 +6,13 @@ import {
   Dialog,
   DialogContent,
   DialogDescription,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Button } from "./ui/button";
-import { DialogClose } from "@radix-ui/react-dialog";
-import { usePathname, useRouter } from "next/navigation";
+
+import { usePathname } from "next/navigation";
 import { inviteUser } from "@/actions/actions";
 import { Input } from "./ui/input";
 import { toast } from "sonner";

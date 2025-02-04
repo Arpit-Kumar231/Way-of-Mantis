@@ -11,7 +11,6 @@ import Editor from "./Editor";
 import useOwner from "@/lib/useOwner";
 import DeleteDocument from "./DeleteDoc";
 import InviteUser from "./InviteUser";
-import { Breadcrumb } from "./ui/breadcrumb";
 import Breadcrumbs from "./Breadcrumbs";
 
 function Document({ id }: { id: string }) {

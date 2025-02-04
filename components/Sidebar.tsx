@@ -4,7 +4,6 @@ import React from "react";
 import { useUser } from "@clerk/nextjs";
 import { db } from "@/firebase";
 import {
-  collection,
   query,
   where,
   collectionGroup,
@@ -19,7 +18,6 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import NewDocumentButton from "./CreateDocumentButton";
 import SidebarItem from "./SidebarItem";
 import AuthComponent from "./AuthComponent";
 import CreateDocumentButton from "./CreateDocumentButton";

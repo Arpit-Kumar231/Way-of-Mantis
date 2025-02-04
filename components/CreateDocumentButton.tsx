@@ -3,7 +3,7 @@
 import React from "react";
 import { Button } from "./ui/button";
 import { useRouter } from "next/navigation";
-import { QueryClient, useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { createNewDocument } from "@/actions/actions";
 import { PlusCircleIcon } from "lucide-react";
 import { useUser } from "@clerk/nextjs";

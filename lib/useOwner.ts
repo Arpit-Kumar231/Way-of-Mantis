@@ -2,8 +2,8 @@
 import { db } from "@/firebase";
 import { useUser } from "@clerk/nextjs";
 import { useRoom } from "@liveblocks/react";
-import { collection, collectionGroup, query, where } from "firebase/firestore";
-import React, { use, useEffect, useState } from "react";
+import { collectionGroup, query, where } from "firebase/firestore";
+import { useEffect, useState } from "react";
 import { useCollection } from "react-firebase-hooks/firestore";
 
 function useOwner() {
