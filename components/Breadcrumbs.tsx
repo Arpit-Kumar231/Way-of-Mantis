@@ -18,7 +18,7 @@ function Breadcrumbs() {
     <Breadcrumb className="justify-center flex pb-4">
       <BreadcrumbList>
         <BreadcrumbItem className="hover:text-slate-100">
-          <BreadcrumbLink href="/">Home</BreadcrumbLink>
+          <BreadcrumbLink href="/" className="hover:text-slate-100">Home</BreadcrumbLink>
         </BreadcrumbItem>
         {partsWithoutSpace.map((part, index) => {
           const href = `/${parts.slice(0, index + 1).join("/")}`;
@@ -29,9 +29,9 @@ function Breadcrumbs() {
               <BreadcrumbSeparator />
               <BreadcrumbItem className="hover:text-slate-100">
                 {isLast ? (
-                  <BreadcrumbPage>{part}</BreadcrumbPage>
+                  <BreadcrumbPage className="hover:text-slate-100">{part}</BreadcrumbPage>
                 ) : (
-                  <BreadcrumbLink href={href}>{part}</BreadcrumbLink>
+                  <BreadcrumbLink href={href} className="hover:text-slate-100">{part}</BreadcrumbLink>
                 )}
               </BreadcrumbItem>
             </Fragment>

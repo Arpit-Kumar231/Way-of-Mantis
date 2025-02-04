@@ -11,13 +11,15 @@ import useOwner from "@/lib/useOwner";
 import DeleteDocument from "./DeleteDoc";
 import InviteUser from "./InviteUser";
 import Breadcrumbs from "./Breadcrumbs";
+import { Loader } from "lucide-react";
+import AllUsersEditing from "./AllUsersEditing";
 
 function Document({ id }: { id: string }) {
   const [input, setInput] = useState("");
   const queryClient = useQueryClient();
   const isOwner = useOwner();
 
-  const { data, error } = useQuery({
+  const { data, error , isLoading } = useQuery({
     queryKey: ["document", id],
     queryFn: async () => {
       const docRef = doc(db, "documents", id);
@@ -55,6 +57,7 @@ function Document({ id }: { id: string }) {
   }, [input]);
 
   if (error) return <div>Error: {error.message}</div>;
+  if(isLoading) return <div className="h-screen flex items-center justify-center"><Loader className="animate-spin text-white w-12 h-12"/></div>;
 
   return (
     <div>
@@ -68,6 +71,7 @@ function Document({ id }: { id: string }) {
         </div>
         <div className="flex justify-between items-center">
           <Breadcrumbs />
+          <AllUsersEditing />
           <div className="pb-2 flex gap-2">
             {isOwner && <InviteUser />}
 

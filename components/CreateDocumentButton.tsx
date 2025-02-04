@@ -19,12 +19,20 @@ function CreateDocumentButton() {
       queryClient.invalidateQueries({
         queryKey: ["userDocuments", user?.emailAddresses[0]?.emailAddress],
       });
+      if (data == "") {
+        return;
+      }
+
       router.push(`/doc/${data?.docId}`);
     },
   });
 
   return (
-    <Button onClick={() => mutation.mutate()} disabled={mutation.isPending}  className="bg-slate-800 text-white">
+    <Button
+      onClick={() => mutation.mutate()}
+      disabled={mutation.isPending}
+      className="bg-slate-800 text-white"
+    >
       {mutation.isPending ? "Creating Document..." : "New Document"}
       <PlusCircleIcon />
     </Button>

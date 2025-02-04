@@ -13,7 +13,7 @@ function RoomProviderComp({
 }) {
   return (
     <RoomProvider id={roomId} initialPresence={{ cursor: null }}>
-      <ClientSideSuspense fallback={<div><Loader className="animate-spin"/></div>}>
+      <ClientSideSuspense fallback={<div><Loader className="animate-spin text-white"/></div>}>
         <LiveCursorProvider>{children}</LiveCursorProvider>
       </ClientSideSuspense>
     </RoomProvider>
