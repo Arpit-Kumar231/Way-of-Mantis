@@ -115,12 +115,12 @@ export default function Sidebar() {
 
   return (
     <div className="p-2 md:p-5 bg-slate-900 relative">
-      <div className="md:hidden">
+      <div className="md:hidden bg-slate-900">
         <Sheet>
           <SheetTrigger>
             <MenuIcon className="p-2 hover:opacity-30 rounded-lg" size={40} />
           </SheetTrigger>
-          <SheetContent side={"left"}>
+          <SheetContent side={"right"} className="bg-slate-900">
             <SheetHeader>
               <SheetTitle>Menu</SheetTitle>
               <div>{menuOptions}</div>
