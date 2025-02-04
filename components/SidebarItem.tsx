@@ -31,7 +31,7 @@ function SidebarItem({ href, id }: { href: string; id: string }) {
         hover:bg-gray-100 dark:hover:bg-gray-800
         ${
           isActive
-            ? "bg-blue-50 dark:bg-gray-800 border-l-4 border-black"
+            ? "bg-gray-800 dark:bg-gray-800 border-l-4 border-black"
             : "hover:translate-x-1"
         }
       `}
@@ -55,8 +55,8 @@ function SidebarItem({ href, id }: { href: string; id: string }) {
       <p
         className={`truncate ${
           isActive
-            ? "text-black dark:text-gray-200 font-semibold text-sm"
-            : "text-gray-700 dark:text-gray-300 group-hover:text-gray-900 dark:group-hover:text-white font-semibold text-sm"
+            ? "text-gray-200 dark:text-gray-200 font-semibold text-sm"
+            : "text-gray-400 dark:text-gray-300 group-hover:text-gray-900 dark:group-hover:text-white font-semibold text-sm"
         }`}
       >
         {data.title}

@@ -17,7 +17,7 @@ function Document({ id }: { id: string }) {
   const queryClient = useQueryClient();
   const isOwner = useOwner();
 
-  const { data, isLoading, error } = useQuery({
+  const { data, error } = useQuery({
     queryKey: ["document", id],
     queryFn: async () => {
       const docRef = doc(db, "documents", id);
@@ -54,7 +54,6 @@ function Document({ id }: { id: string }) {
     return () => clearTimeout(timer);
   }, [input]);
 
-  if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Error: {error.message}</div>;
 
   return (
@@ -69,7 +68,7 @@ function Document({ id }: { id: string }) {
         </div>
         <div className="flex justify-between items-center">
           <Breadcrumbs />
-          <div className="pb-2 flex gap-1">
+          <div className="pb-2 flex gap-2">
             {isOwner && <InviteUser />}
 
             {isOwner && <DeleteDocument />}

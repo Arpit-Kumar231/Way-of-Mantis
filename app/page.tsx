@@ -4,10 +4,10 @@ import { Pen } from "lucide-react";
 
 export default function Home() {
   return (
-    <main className="flex  justify-end h-screen">
+    <main className="flex  justify-end h-screen bg-slate-950">
       <div className="flex mx-auto flex-col items-center justify-center gap-8">
         <div className="flex items-center gap-4">
-          <span className="text-6xl font-bold text-primary">Note-Flow</span>
+          <span className="text-6xl font-bold text-muted-foreground">Note-Flow</span>
           <Pen className="h-12 w-12 text-primary" />
 
         </div>

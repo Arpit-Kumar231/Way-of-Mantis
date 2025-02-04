@@ -34,8 +34,8 @@ function BlockNote({
     },
   });
   return (
-    <div className="relative max-w-6xl mx-auto min-h-[800px] bg-white p-10 rounded-xl">
-      <BlockNoteView editor={editor} theme={darkMode ? "dark" : "light"} />
+    <div className="relative max-w-6xl mx-auto min-h-[800px] p-10 rounded-xl">
+      <BlockNoteView editor={editor} theme={ "dark"} />
     </div>
   );
 }
@@ -58,7 +58,7 @@ function Editor() {
   if (!doc || !provider) return null;
 
   return (
-    <div className="max-w-6xl mx-auto">
+    <div className="max-w-6xl mx-auto bg-slate-950 text-neutral-300">
       <BlockNote doc={doc} provider={provider} darkMode={darkMode} />
     </div>
   );

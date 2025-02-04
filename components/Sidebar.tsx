@@ -2,7 +2,7 @@
 // @ts-nocheck
 "use client";
 
-import React from "react";
+import React, { Fragment } from "react";
 import { useUser } from "@clerk/nextjs";
 import { db } from "@/firebase";
 import {
@@ -71,7 +71,7 @@ export default function Sidebar() {
   }, [data]);
 
   const menuOptions = (
-    <>
+    <div className="bg-slate-900 text-slate-200 flex flex-col gap-3">
       <AuthComponent />
       <CreateDocumentButton />
       <div className="flex py-4 flex-col space-y-4 md:max-w-36">
@@ -110,11 +110,11 @@ export default function Sidebar() {
           </>
         )}
       </div>
-    </>
+    </div>
   );
 
   return (
-    <div className="p-2 md:p-5 bg-gray-200 relative">
+    <div className="p-2 md:p-5 bg-slate-900 relative">
       <div className="md:hidden">
         <Sheet>
           <SheetTrigger>

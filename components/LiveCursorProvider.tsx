@@ -3,7 +3,7 @@
 import { useOthers } from "@liveblocks/react";
 import { useMyPresence } from "@liveblocks/react/suspense";
 import React from "react";
-import FollowPointer from "./FollowPointer";
+import Pointer from "./Pointer";
 
 function LiveCursorProvider({ children }: { children: React.ReactNode }) {
   const [myPresence, updateMyPresence] = useMyPresence();
@@ -24,7 +24,7 @@ function LiveCursorProvider({ children }: { children: React.ReactNode }) {
   return (
     <div onPointerMove={handlePointerMove} onPointerLeave={handlePointerLeave}>
       {others.filter((other) => other.presence.cursor != null).map(({connectionId , presence , info}) => (
-       <FollowPointer key={connectionId} presence={myPresence} info={info} />
+       <Pointer key={connectionId} presence={myPresence} info={info} />
       ))}
       {children}
     </div>

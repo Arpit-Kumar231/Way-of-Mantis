@@ -13,7 +13,7 @@ import { Button } from "./ui/button";
 function AuthComponent() {
   const { user } = useUser();
   return (
-    <div className="flex items-center justify-between pb-2 border-b-2">
+    <div className="flex items-center justify-between pb-2">
       {user && <h1 className="text-lg font-semibold">{user?.firstName}</h1>}
       <div>
         <SignedOut>

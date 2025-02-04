@@ -1,5 +1,4 @@
-function FollowPointer({
-  info,
+function Pointer({
 }: {
   x: number;
   y: number;
@@ -36,4 +35,4 @@ function FollowPointer({
   // </motion.div>
 }
 
-export default FollowPointer;
+export default Pointer;

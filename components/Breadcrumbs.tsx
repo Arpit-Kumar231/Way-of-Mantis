@@ -17,7 +17,7 @@ function Breadcrumbs() {
   return (
     <Breadcrumb className="justify-center flex pb-4">
       <BreadcrumbList>
-        <BreadcrumbItem>
+        <BreadcrumbItem className="hover:text-slate-100">
           <BreadcrumbLink href="/">Home</BreadcrumbLink>
         </BreadcrumbItem>
         {partsWithoutSpace.map((part, index) => {
@@ -27,7 +27,7 @@ function Breadcrumbs() {
           return (
             <Fragment key={href}>
               <BreadcrumbSeparator />
-              <BreadcrumbItem>
+              <BreadcrumbItem className="hover:text-slate-100">
                 {isLast ? (
                   <BreadcrumbPage>{part}</BreadcrumbPage>
                 ) : (

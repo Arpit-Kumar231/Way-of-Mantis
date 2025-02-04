@@ -37,7 +37,7 @@ export default function RootLayout({
         >
           <QueryProvider>
             <div className="flex min-h-screen">
-              <div className="flex-1 p-4 bg-gray-100 overflow-y-auto scrollbar-hide">
+              <div className="flex-1 p-4 bg-slate-950 overflow-y-auto scrollbar-hide">
                 {children}
               </div>
               <Sidebar />
