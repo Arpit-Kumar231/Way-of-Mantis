@@ -44,25 +44,17 @@ FIREBASE_CERT_URL=your_cert_url
 FIREBASE_PRIVATE_KEY=your_private_key
 Installation
 Clone the repository
-bash
-
-Copy
 git clone https://github.com/yourusername/path-of-mantis.git
 cd path-of-mantis
 Install dependencies
-bash
-
-Copy
 npm install
 # or
 yarn install
 Run the development server
-bash
-
-Copy
 npm run dev
 # or
 yarn dev
+```
 🛠️ Tech Stack
 Frontend Framework: Next.js
 Editor: Used Liveblocks Yjs
