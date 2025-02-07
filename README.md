@@ -1,36 +1,74 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Path of the Mantis - Collaborative Text Editor 🦗
 
-## Getting Started
+A real-time collaborative text editor built with Next.js+ Typescript, TipTap, Liveblocks, and Firebase.
 
-First, run the development server:
+## ✨ Features
 
-```bash
+- 🔄 Real-time collaboration with multiple users
+- 📝 Rich text editing powered by Liveblocks Yjs
+- 👥 User presence with colored cursors
+- 🎨 Light/Dark theme support
+- 🔐 Authentication with Clerk
+- 💾 Document persistence with Firebase
+- ⚡ Optimized performance with React Query
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+- Node.js 16.x or later
+- npm/yarn
+- Firebase account
+- Clerk account
+- Liveblocks account
+
+### Environment Variables
+
+Create a `.env.local` file in the root directory with the following variables:
+
+```env
+# Clerk Authentication
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=your_clerk_publishable_key
+CLERK_SECRET_KEY=your_clerk_secret_key
+
+# Liveblocks Collaboration
+NEXT_PUBLIC_LIVEBLOCKS_PUBLIC_KEY=your_liveblocks_public_key
+LIVEBLOCKS_PRIVATE_KEY=your_liveblocks_private_key
+
+# Firebase Configuration
+FIREBASE_PROJECT_ID=your_project_id
+FIREBASE_PRIVATE_KEY_ID=your_private_key_id
+FIREBASE_CLIENT_EMAIL=your_client_email
+FIREBASE_CLIENT_ID=your_client_id
+FIREBASE_CERT_URL=your_cert_url
+FIREBASE_PRIVATE_KEY=your_private_key
+Installation
+Clone the repository
+git clone https://github.com/yourusername/path-of-mantis.git
+cd path-of-mantis
+Install dependencies
+npm install
+# or
+yarn install
+Run the development server
 npm run dev
 # or
 yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
+🛠️ Tech Stack
+Frontend Framework: Next.js
+Editor: Used Liveblocks Yjs
+Real-time Collaboration: Liveblocks Yjs
+Authentication: Clerk
+Database: Firebase
+State Management: React Query
+Styling: Tailwind CSS
+🔑 Key Features
+Real-time Collaboration: Multiple users can edit documents simultaneously
+Cursor Presence: See other users' cursors in real-time
+Rich Text Editing: Support for formatting, lists, and more
+Authentication: Secure access with Clerk integration
+Document Management: Create, edit, and delete documents
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### Firebase Env's can be get by allowing admin db access and installing the service.json file provided by firebase that file will contain all the necessary env's
+### Note: Have use Blocknote provided by Liveblocks for rich text editor.
