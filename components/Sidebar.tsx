@@ -37,7 +37,7 @@ async function fetchUserDocuments(email: string | undefined) {
 }
 
 export default function Sidebar() {
-  const { user, isLoaded } = useUser();
+  const { user, isLoaded, isSignedIn } = useUser();
   const [groupedData, setGroupedData] = React.useState<{
     owner: any[];
     editor: any[];
@@ -73,7 +73,7 @@ export default function Sidebar() {
   const menuOptions = (
     <div className="bg-slate-900 text-slate-200 flex flex-col gap-3">
       <AuthComponent />
-      <CreateDocumentButton />
+      {isSignedIn && <CreateDocumentButton />}
       <div className="flex py-4 flex-col space-y-4 md:max-w-36">
         {groupedData?.owner?.length === 0 ? (
           <div>
